@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TelemetryNativePlatform>x64</TelemetryNativePlatform>
+    <TelemetryNativePlatform Condition="'$(PlatformTarget)' == 'x86'">Win32</TelemetryNativePlatform>
+  </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)\..\Microsoft.CognitiveServices.Speech.Extension.Telemetry.props" />
+  <!-- This is to enable back compat with old nugets on Windows.
+       PackageReference takes care of this automatically for any platform. -->
+  <ItemGroup Condition="'$(TargetFramework)' == '' AND ('$(Platform)' == 'x86' OR '$(PlatformTarget)' == 'x86')">
+    <None Include="$(TelemetryPackageRoot)runtimes\win-x86\native\Microsoft.CognitiveServices.Speech.extension.telemetry.dll">
+      <Link>Microsoft.CognitiveServices.Speech.extension.telemetry.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == '' AND ('$(Platform)' == 'x64' OR '$(PlatformTarget)' == 'x64')">
+    <None Include="$(TelemetryPackageRoot)runtimes\win-x64\native\Microsoft.CognitiveServices.Speech.extension.telemetry.dll">
+      <Link>Microsoft.CognitiveServices.Speech.extension.telemetry.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == '' AND '$(PlatformTarget.ToLower())' == 'anycpu'">
+    <None Include="$(TelemetryPackageRoot)runtimes\win-x64\native\Microsoft.CognitiveServices.Speech.extension.telemetry.dll">
+      <Link>Microsoft.CognitiveServices.Speech.extension.telemetry.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(TelemetryPackageRoot)runtimes\win-x86\native\Microsoft.CognitiveServices.Speech.extension.telemetry.dll">
+      <Link>x86\Microsoft.CognitiveServices.Speech.extension.telemetry.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,5 @@
+sceneSetups:
+- path: Assets/chatGPTAIGirlFriendSample/Scene/Blibugallsample.unity
+  isLoaded: 1
+  isActive: 1
+  isSubScene: 0
